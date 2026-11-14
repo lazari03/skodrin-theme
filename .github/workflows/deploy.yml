@@ -23,7 +23,8 @@ jobs:
         run: |
           set -eu
           case "$THEME_DIR" in */wp-content/themes/skodrin-theme/) ;; *) echo "FTP_THEME_DIR must end in /wp-content/themes/skodrin-theme/"; exit 1;; esac
-          case "$PLUGIN_DIR" in */wp-content/plugins/skodrin-core/) ;; *) echo "FTP_PLUGIN_DIR must end in /wp-content/plugins/skodrin-core/"; exit 1;; esac
+          test -n "$PLUGIN_DIR" || { echo "FTP_PLUGIN_DIR is required"; exit 1; }
+          case "$PLUGIN_DIR" in /|.|./|..|../) echo "FTP_PLUGIN_DIR must point to a dedicated plugin directory, not the FTP root"; exit 1;; esac
       - name: Check PHP syntax
         run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -r -n1 php -l
       - name: Prepare theme package
