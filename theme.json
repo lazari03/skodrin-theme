@@ -11,8 +11,8 @@
       "palette": [
         {
           "slug": "royal-blue",
-          "name": "Royal Blue",
-          "color": "#17458F"
+          "name": "Skodrin Navy",
+          "color": "#202B3B"
         },
         {
           "slug": "gold",
@@ -82,7 +82,7 @@
         {
           "slug": "ink",
           "name": "Ink",
-          "color": "#182B43"
+          "color": "#202B3B"
         },
         {
           "slug": "paper",
