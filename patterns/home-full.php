@@ -62,20 +62,7 @@
 <!-- wp:paragraph {"className":"rc-foundation-copy"} --><p class="rc-foundation-copy">Nëntori është Muaji i Fondacionit Rotary. Është një kohë për të vlerësuar se si bujaria e anëtarëve tanë shndërrohet në ndryshim të qëndrueshëm. Që nga krijimi, Fondacioni ka dhënë mbi 6,5 miliardë dollarë amerikanë për projekte të qëndrueshme të udhëhequra nga anëtarët, që transformojnë komunitete në vend dhe në mbarë botën. Dhurimi juaj ndihmon që kjo punë jetëndryshuese të vazhdojë.</p><!-- /wp:paragraph -->
 <!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://my.rotary.org/en/donate">Dhuroni</a></div><!-- /wp:button --></div><!-- /wp:buttons --></div><!-- /wp:group -->
 </div></div><!-- /wp:cover -->
-<!-- wp:group {"align":"wide","className":"rc-section rc-news-editorial","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide rc-section rc-news-editorial">
-<!-- wp:heading {"level":2,"className":"rc-news-heading"} --><h2 class="wp-block-heading rc-news-heading">Lajme nga Rotary <span class="rc-news-separator">|</span> <span class="rc-news-subtitle">Histori nga e gjithë bota</span></h2><!-- /wp:heading -->
-<!-- wp:query {"queryId":61,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"rc-news-query"} --><div class="wp-block-query rc-news-query">
-<!-- wp:post-template {"layout":{"type":"grid","columnCount":4}} -->
-<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /-->
-<!-- wp:post-terms {"term":"post_tag","separator":" · ","className":"rc-news-tag"} /-->
-<!-- wp:post-title {"isLink":true,"level":3} /-->
-<!-- wp:post-excerpt {"excerptLength":20} /-->
-<!-- /wp:post-template -->
-<!-- wp:query-no-results --><!-- wp:paragraph --><p>Ndiqni lajmet e klubit për histori dhe njoftime të reja.</p><!-- /wp:paragraph --><!-- /wp:query-no-results -->
-</div><!-- /wp:query -->
-<!-- wp:paragraph {"className":"rc-news-more"} --><p class="rc-news-more"><a href="/lajme/">Më shumë lajme dhe histori <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
-</div><!-- /wp:group -->
+
 <!-- wp:group {"align":"wide","className":"rc-section","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-section"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">TAKIME DHE AKTIVITETE</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Çfarë po ndodh?</h2><!-- /wp:heading -->
 <!-- wp:query {"queryId":63,"query":{"perPage":3,"pages":0,"offset":0,"postType":"event","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} --><div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} --><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /--><!-- wp:post-title {"isLink":true,"level":3} /--><!-- wp:post-excerpt {"excerptLength":24} /--><!-- /wp:post-template -->
