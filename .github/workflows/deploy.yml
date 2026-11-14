@@ -16,15 +16,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate FTP paths
+      - name: Resolve WordPress deployment paths
+        id: paths
         env:
-          THEME_DIR: ${{ secrets.FTP_THEME_DIR }}
-          PLUGIN_DIR: ${{ secrets.FTP_PLUGIN_DIR }}
+          WP_ROOT: ${{ secrets.FTP_WP_ROOT }}
+          LEGACY_THEME_DIR: ${{ secrets.FTP_THEME_DIR }}
+        shell: bash
         run: |
-          set -eu
-          case "$THEME_DIR" in */wp-content/themes/skodrin-theme/) ;; *) echo "FTP_THEME_DIR must end in /wp-content/themes/skodrin-theme/"; exit 1;; esac
-          test -n "$PLUGIN_DIR" || { echo "FTP_PLUGIN_DIR is required"; exit 1; }
-          case "$PLUGIN_DIR" in /|.|./|..|../) echo "FTP_PLUGIN_DIR must point to a dedicated plugin directory, not the FTP root"; exit 1;; esac
+          set -euo pipefail
+          root="$WP_ROOT"
+          if [[ -z "$root" ]]; then
+            case "$LEGACY_THEME_DIR" in
+              */wp-content/themes/skodrin-theme/|*/wp-content/themes/skodrin-theme)
+                root="${LEGACY_THEME_DIR%/}"
+                root="${root%/wp-content/themes/skodrin-theme}"
+                ;;
+              *) echo "Set FTP_WP_ROOT to the FTP directory containing wp-admin and wp-content (use / for FTP root)."; exit 1 ;;
+            esac
+          fi
+          [[ "$root" =~ ^[a-zA-Z0-9_./-]+$ ]] || { echo "Invalid WordPress root"; exit 1; }
+          [[ ! "$root" =~ (^|/)\.\.(/|$) ]] || { echo "Parent directory segments are not allowed"; exit 1; }
+          root="${root%/}"
+          echo "theme_dir=$root/wp-content/themes/skodrin-theme/" >> "$GITHUB_OUTPUT"
+          echo "plugin_dir=$root/wp-content/plugins/skodrin-core/" >> "$GITHUB_OUTPUT"
       - name: Check PHP syntax
         run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -r -n1 php -l
       - name: Prepare theme package
@@ -37,7 +51,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_THEME_DIR }}
+          server-dir: ${{ steps.paths.outputs.theme_dir }}
           local-dir: /tmp/skodrin-theme/
           protocol: ftps
           port: 21
@@ -55,7 +69,7 @@ jobs:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          PLUGIN_DIR: ${{ secrets.FTP_PLUGIN_DIR }}
+          PLUGIN_DIR: ${{ steps.paths.outputs.plugin_dir }}
           DRY_RUN: ${{ inputs.dry_run }}
         shell: bash
         run: |
