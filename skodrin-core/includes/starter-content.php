@@ -25,8 +25,10 @@ function skodrin_setup_screen() {
 add_action( 'admin_post_skodrin_install_content', static function () {
     if ( ! current_user_can( 'manage_options' ) ) { wp_die( 'Permission denied.', '', array( 'response' => 403 ) ); }
     check_admin_referer( 'skodrin_install_content' );
+    $home_pattern = WP_Block_Patterns_Registry::get_instance()->get_registered( 'skodrin/home-full' );
+    $home_content = is_array( $home_pattern ) && isset( $home_pattern['content'] ) ? $home_pattern['content'] : '';
     $pages = array(
-        array( 'kreu', 'Kreu', '', '' ),
+        array( 'kreu', 'Kreu', $home_content, '' ),
         array( 'rreth-nesh', 'Rreth nesh', '<!-- wp:heading {"level":2} -->
 <h2 class="wp-block-heading">Rreth Rotary Club Shkodër</h2>
 <!-- /wp:heading -->

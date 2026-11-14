@@ -6,303 +6,99 @@
  * Description: Editable Albanian homepage with mission, focus areas, projects, events and news.
  */
 ?>
-<!-- wp:group {"align":"wide","anchor":"kreu","className":"skodrin-hero","layout":{"type":"constrained"}} -->
-<div id="kreu" class="wp-block-group alignwide skodrin-hero"><!-- wp:paragraph {"className":"skodrin-eyebrow"} -->
-<p class="skodrin-eyebrow">ROTARY CLUB SHKODËR · SHËRBIM MBI VETEN</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading">Së bashku, për një komunitet më të mirë.</h1>
-<!-- /wp:heading -->
-<!-- wp:paragraph {"className":"skodrin-lead"} -->
-<p class="skodrin-lead">Bashkojmë njerëz, ide dhe energji për të nxitur ndryshime pozitive në Shkodër dhe më gjerë.</p>
-<!-- /wp:paragraph -->
-<!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#fushat">Zbuloni fushat tona</a></div>
-<!-- /wp:button -->
-<!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="#perfshihu">Përfshihuni</a></div>
-<!-- /wp:button -->
-</div>
-<!-- /wp:buttons -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"align":"wide","anchor":"rreth-nesh","className":"skodrin-section","layout":{"type":"constrained"}} -->
-<div id="rreth-nesh" class="wp-block-group alignwide skodrin-section"><!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph {"className":"skodrin-eyebrow"} -->
-<p class="skodrin-eyebrow">KUSH JEMI</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":2} -->
-<h2 class="wp-block-heading">Një komunitet i ndërtuar mbi shërbimin.</h2>
-<!-- /wp:heading -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph -->
-<p>Rotary është një rrjet njerëzish që besojnë në fuqinë e bashkëpunimit dhe të shërbimit ndaj të tjerëve. Në Shkodër, synojmë të krijojmë hapësira për angazhim qytetar, miqësi dhe nisma që i përgjigjen nevojave të komunitetit.</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
-<p>Përmes lidhjeve mes profesionistëve, vullnetarëve dhe partnerëve, idetë mund të shndërrohen në veprime të qëndrueshme.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"align":"wide","anchor":"fushat","className":"skodrin-section skodrin-focus","layout":{"type":"constrained"}} -->
-<div id="fushat" class="wp-block-group alignwide skodrin-section skodrin-focus"><!-- wp:paragraph {"className":"skodrin-eyebrow"} -->
-<p class="skodrin-eyebrow">SHTATË FUSHA TË ROTARY</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":2} -->
-<h2 class="wp-block-heading">Ku mund të bëjmë ndryshimin.</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Fushat globale të fokusit të Rotary udhëheqin shërbimin dhe bashkëpunimin tonë.</p>
-<!-- /wp:paragraph -->
-<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"skodrin-focus-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group skodrin-focus-card"><!-- wp:paragraph {"className":"skodrin-card-number"} -->
-<p class="skodrin-card-number">01</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Paqja dhe mirëkuptimi</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Nxisim dialogun, bashkëpunimin dhe zgjidhjen paqësore të konflikteve.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"skodrin-focus-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group skodrin-focus-card"><!-- wp:paragraph {"className":"skodrin-card-number"} -->
-<p class="skodrin-card-number">02</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Parandalimi i sëmundjeve</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Mbështesim ndërgjegjësimin, parandalimin dhe qasjen në kujdes shëndetësor.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"skodrin-focus-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group skodrin-focus-card"><!-- wp:paragraph {"className":"skodrin-card-number"} -->
-<p class="skodrin-card-number">03</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Uji dhe higjiena</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Promovojmë qasjen në ujë të pastër, kanalizime dhe higjienë.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"skodrin-focus-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group skodrin-focus-card"><!-- wp:paragraph {"className":"skodrin-card-number"} -->
-<p class="skodrin-card-number">04</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Shëndeti i nënës dhe fëmijës</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Mbështesim mirëqenien e nënave dhe fëmijëve.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"skodrin-focus-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group skodrin-focus-card"><!-- wp:paragraph {"className":"skodrin-card-number"} -->
-<p class="skodrin-card-number">05</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Arsimi dhe shkrim-leximi</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Nxisim mundësitë për të mësuar dhe për t’u zhvilluar.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"skodrin-focus-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group skodrin-focus-card"><!-- wp:paragraph {"className":"skodrin-card-number"} -->
-<p class="skodrin-card-number">06</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Ekonomia lokale</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Inkurajojmë zhvillimin e komuniteteve dhe mundësitë ekonomike.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"skodrin-focus-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group skodrin-focus-card"><!-- wp:paragraph {"className":"skodrin-card-number"} -->
-<p class="skodrin-card-number">07</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Mjedisi</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Promovojmë kujdesin për natyrën dhe një të ardhme të qëndrueshme.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"className":"skodrin-focus-card skodrin-accent-card","layout":{"type":"constrained"}} -->
-<div class="wp-block-group skodrin-focus-card skodrin-accent-card"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Nga ideja te veprimi</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Angazhimi fillon duke dëgjuar komunitetin dhe duke punuar së bashku për zgjidhje praktike.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"align":"wide","anchor":"projektet","className":"skodrin-section","layout":{"type":"constrained"}} -->
-<div id="projektet" class="wp-block-group alignwide skodrin-section"><!-- wp:paragraph {"className":"skodrin-eyebrow"} -->
-<p class="skodrin-eyebrow">NISMAT TONA</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":2} -->
-<h2 class="wp-block-heading">Projektet</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Zbuloni nismat dhe veprimtaritë e klubit.</p>
-<!-- /wp:paragraph -->
-<!-- wp:query {"queryId":31,"query":{"perPage":3,"pages":0,"offset":0,"postType":"project","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
-<div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
-<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /-->
-<!-- wp:post-title {"isLink":true,"level":3} /-->
-<!-- wp:post-excerpt {"excerptLength":22} /-->
-<!-- /wp:post-template -->
-<!-- wp:query-no-results -->
-<!-- wp:paragraph -->
-<p>Projektet do të shfaqen këtu sapo të publikohen.</p>
-<!-- /wp:paragraph -->
-
+<!-- wp:cover {"url":"https://rcskodrin.org/wp-content/uploads/2026/11/shkoder-rozafa-buna.jpg","dimRatio":60,"overlayColor":"ink","minHeight":630,"minHeightUnit":"px","align":"full","className":"rc-hero","layout":{"type":"constrained"}} --><div class="wp-block-cover alignfull rc-hero" style="min-height:630px"><span aria-hidden="true" class="wp-block-cover__background has-ink-background-color has-background-dim-60 has-background-dim"></span><img class="wp-block-cover__image-background " alt="Lumi Buna dhe liqeni i Shkodrës, parë nga Rozafa" src="https://rcskodrin.org/wp-content/uploads/2026/11/shkoder-rozafa-buna.jpg" data-object-fit="cover"/><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","className":"rc-hero-inner","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-hero-inner"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">ROTARY CLUB SKODRIN · SHKODËR, SHQIPËRI</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":1} --><h1 class="wp-block-heading">Njerëz që sjellin ndryshim.</h1><!-- /wp:heading -->
+<!-- wp:paragraph {"className":"rc-hero-lead"} --><p class="rc-hero-lead">Bashkojmë njerëz, ide dhe përvojë për t’i shërbyer komunitetit dhe për të ndërtuar një të ardhme më të mirë.</p><!-- /wp:paragraph -->
+<!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/perfshihu/">Bëhu pjesë</a></div><!-- /wp:button -->
+<!-- wp:button {"className":"is-style-outline"} --><div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/projektet/">Zbulo punën tonë</a></div><!-- /wp:button -->
+</div><!-- /wp:buttons -->
+</div><!-- /wp:group -->
+</div></div><!-- /wp:cover -->
+<!-- wp:group {"align":"wide","className":"rc-section rc-mission","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-section rc-mission"><!-- wp:columns --><div class="wp-block-columns"><!-- wp:column --><div class="wp-block-column"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">KUSH JEMI</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Shërbimi fillon me njerëzit.</h2><!-- /wp:heading -->
+</div><!-- /wp:column -->
+<!-- wp:column --><div class="wp-block-column"><!-- wp:paragraph --><p>Rotary Club Skodrin lidh njerëz që dëshirojnë t’i japin diçka komunitetit. Përmes miqësisë, bashkëpunimit dhe shërbimit, synojmë të krijojmë mundësi për ndryshim të qëndrueshëm në Shkodër.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="/rreth-nesh/">Njihu me klubin <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:column -->
+</div><!-- /wp:columns -->
+</div><!-- /wp:group -->
+<!-- wp:group {"align":"wide","className":"rc-section","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-section"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">HISTORI NGA KLUBI</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Lajme dhe histori</h2><!-- /wp:heading -->
+<!-- wp:query {"queryId":61,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} --><div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} --><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /--><!-- wp:post-title {"isLink":true,"level":3} /--><!-- wp:post-excerpt {"excerptLength":24} /--><!-- /wp:post-template -->
+<!-- wp:query-no-results --><!-- wp:paragraph --><p>Ndiqni njoftimet dhe historitë e klubit në Facebook.</p><!-- /wp:paragraph -->
 <!-- /wp:query-no-results -->
-</div>
-<!-- /wp:query -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"align":"wide","anchor":"eventet","className":"skodrin-section skodrin-events","layout":{"type":"constrained"}} -->
-<div id="eventet" class="wp-block-group alignwide skodrin-section skodrin-events"><!-- wp:paragraph {"className":"skodrin-eyebrow"} -->
-<p class="skodrin-eyebrow">TAKIME DHE AKTIVITETE</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":2} -->
-<h2 class="wp-block-heading">Eventet</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Ndiqni aktivitetet dhe mundësitë për t’u bashkuar me komunitetin.</p>
-<!-- /wp:paragraph -->
-<!-- wp:query {"queryId":32,"query":{"perPage":3,"pages":0,"offset":0,"postType":"event","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
-<div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
-<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /-->
-<!-- wp:post-title {"isLink":true,"level":3} /-->
-<!-- wp:post-excerpt {"excerptLength":22} /-->
-<!-- /wp:post-template -->
-<!-- wp:query-no-results -->
-<!-- wp:paragraph -->
-<p>Nuk ka ende evente të publikuara.</p>
-<!-- /wp:paragraph -->
-
+</div><!-- /wp:query -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="/lajme/">Të gjitha lajmet <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+<!-- wp:group {"align":"full","className":"rc-causes","layout":{"type":"constrained"}} --><div class="wp-block-group alignfull rc-causes"><!-- wp:group {"align":"wide","className":"rc-section","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-section"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">FUSHAT TONA</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Shtatë fusha. Një qëllim.</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Rotary punon në shtatë fusha që ndihmojnë komunitetet të ndërtojnë një të ardhme më të mirë.</p><!-- /wp:paragraph -->
+<!-- wp:columns --><div class="wp-block-columns"><!-- wp:column --><div class="wp-block-column"><!-- wp:group {"className":"rc-cause-card","layout":{"type":"constrained"}} --><div class="wp-block-group rc-cause-card"><!-- wp:paragraph {"className":"rc-cause-number"} --><p class="rc-cause-number">01</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Paqja dhe mirëkuptimi</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Promovojmë dialogun dhe zgjidhjen paqësore të konflikteve.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="https://www.rotary.org/en/our-causes/promoting-peace">Mëso më shumë <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+</div><!-- /wp:column -->
+<!-- wp:column --><div class="wp-block-column"><!-- wp:group {"className":"rc-cause-card","layout":{"type":"constrained"}} --><div class="wp-block-group rc-cause-card"><!-- wp:paragraph {"className":"rc-cause-number"} --><p class="rc-cause-number">02</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Shëndeti</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Mbështesim parandalimin dhe trajtimin e sëmundjeve.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="https://www.rotary.org/en/our-causes/fighting-disease">Mëso më shumë <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+</div><!-- /wp:column -->
+<!-- wp:column --><div class="wp-block-column"><!-- wp:group {"className":"rc-cause-card","layout":{"type":"constrained"}} --><div class="wp-block-group rc-cause-card"><!-- wp:paragraph {"className":"rc-cause-number"} --><p class="rc-cause-number">03</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Uji i pastër</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Nxisim qasjen në ujë të sigurt dhe higjienë.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="https://www.rotary.org/en/our-causes/providing-clean-water">Mëso më shumë <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+</div><!-- /wp:column -->
+</div><!-- /wp:columns -->
+<!-- wp:columns --><div class="wp-block-columns"><!-- wp:column --><div class="wp-block-column"><!-- wp:group {"className":"rc-cause-card","layout":{"type":"constrained"}} --><div class="wp-block-group rc-cause-card"><!-- wp:paragraph {"className":"rc-cause-number"} --><p class="rc-cause-number">04</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Nënat dhe fëmijët</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Promovojmë shëndetin e nënave dhe fëmijëve.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="https://www.rotary.org/en/our-causes/saving-mothers-and-children">Mëso më shumë <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+</div><!-- /wp:column -->
+<!-- wp:column --><div class="wp-block-column"><!-- wp:group {"className":"rc-cause-card","layout":{"type":"constrained"}} --><div class="wp-block-group rc-cause-card"><!-- wp:paragraph {"className":"rc-cause-number"} --><p class="rc-cause-number">05</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Arsimi</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Krijojmë mundësi për të mësuar dhe për t’u zhvilluar.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="https://www.rotary.org/en/our-causes/supporting-education">Mëso më shumë <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+</div><!-- /wp:column -->
+<!-- wp:column --><div class="wp-block-column"><!-- wp:group {"className":"rc-cause-card","layout":{"type":"constrained"}} --><div class="wp-block-group rc-cause-card"><!-- wp:paragraph {"className":"rc-cause-number"} --><p class="rc-cause-number">06</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Ekonomia lokale</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Mbështesim zhvillimin e komuniteteve.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="https://www.rotary.org/en/our-causes/growing-local-economies">Mëso më shumë <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+</div><!-- /wp:column -->
+</div><!-- /wp:columns -->
+<!-- wp:columns --><div class="wp-block-columns"><!-- wp:column --><div class="wp-block-column"><!-- wp:group {"className":"rc-cause-card","layout":{"type":"constrained"}} --><div class="wp-block-group rc-cause-card"><!-- wp:paragraph {"className":"rc-cause-number"} --><p class="rc-cause-number">07</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Mjedisi</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Kujdesemi për natyrën dhe një të ardhme të qëndrueshme.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="https://www.rotary.org/en/our-causes/protecting-environment">Mëso më shumë <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+</div><!-- /wp:column -->
+<!-- wp:column --><div class="wp-block-column"><!-- wp:group {"className":"rc-cause-card rc-cause-accent","layout":{"type":"constrained"}} --><div class="wp-block-group rc-cause-card rc-cause-accent"><!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Nga ideja te veprimi</h3><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Bashkëpunimi ynë fillon duke dëgjuar komunitetin.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="/projektet/">Zbuloni projektet <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+</div><!-- /wp:column -->
+</div><!-- /wp:columns -->
+</div><!-- /wp:group -->
+</div><!-- /wp:group -->
+<!-- wp:group {"align":"wide","className":"rc-section","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-section"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">VEPRIM NË KOMUNITET</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Projektet tona</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Nismat dhe veprimtaritë që lidhen me nevojat e komunitetit.</p><!-- /wp:paragraph -->
+<!-- wp:query {"queryId":62,"query":{"perPage":3,"pages":0,"offset":0,"postType":"project","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} --><div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} --><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /--><!-- wp:post-title {"isLink":true,"level":3} /--><!-- wp:post-excerpt {"excerptLength":24} /--><!-- /wp:post-template -->
+<!-- wp:query-no-results --><!-- wp:paragraph --><p>Projektet do të publikohen këtu kur të jenë të dokumentuara.</p><!-- /wp:paragraph -->
 <!-- /wp:query-no-results -->
-</div>
-<!-- /wp:query -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"align":"wide","anchor":"perfshihu","className":"skodrin-cta","layout":{"type":"constrained"}} -->
-<div id="perfshihu" class="wp-block-group alignwide skodrin-cta"><!-- wp:paragraph {"className":"skodrin-eyebrow"} -->
-<p class="skodrin-eyebrow">PËRFSHIHU</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":2} -->
-<h2 class="wp-block-heading">Ndryshimi fillon me një hap.</h2>
-<!-- /wp:heading -->
-<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Bëhu pjesë</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Njihu me Rotary, lidhu me njerëz që ndajnë të njëjtat vlera dhe kontribuo me përvojën tënde.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Jep kontributin tënd</h3>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
-<p>Ofro kohën, njohuritë ose mbështetjen tënde për nismat e komunitetit.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-<!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://www.rotary.org/">Mëso për Rotary</a></div>
-<!-- /wp:button -->
-</div>
-<!-- /wp:buttons -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"align":"wide","anchor":"lajmet","className":"skodrin-section","layout":{"type":"constrained"}} -->
-<div id="lajmet" class="wp-block-group alignwide skodrin-section"><!-- wp:paragraph {"className":"skodrin-eyebrow"} -->
-<p class="skodrin-eyebrow">NGA KOMUNITETI</p>
-<!-- /wp:paragraph -->
-<!-- wp:heading {"level":2} -->
-<h2 class="wp-block-heading">Lajmet e fundit</h2>
-<!-- /wp:heading -->
-<!-- wp:query {"queryId":33,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
-<div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
-<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /-->
-<!-- wp:post-title {"isLink":true,"level":3} /-->
-<!-- wp:post-excerpt {"excerptLength":22} /-->
-<!-- /wp:post-template -->
-<!-- wp:query-no-results -->
-<!-- wp:paragraph -->
-<p>Lajmet e klubit do të publikohen këtu.</p>
-<!-- /wp:paragraph -->
-
+</div><!-- /wp:query -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="/projektet/">Shiko projektet <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
+<!-- wp:group {"align":"wide","className":"rc-section","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-section"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">TAKIME DHE AKTIVITETE</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Çfarë po ndodh?</h2><!-- /wp:heading -->
+<!-- wp:query {"queryId":63,"query":{"perPage":3,"pages":0,"offset":0,"postType":"event","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} --><div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} --><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /--><!-- wp:post-title {"isLink":true,"level":3} /--><!-- wp:post-excerpt {"excerptLength":24} /--><!-- /wp:post-template -->
+<!-- wp:query-no-results --><!-- wp:paragraph --><p>Për njoftimet e takimeve dhe aktiviteteve, ndiqni klubin në Facebook.</p><!-- /wp:paragraph -->
 <!-- /wp:query-no-results -->
-</div>
-<!-- /wp:query -->
-</div>
-<!-- /wp:group -->
+</div><!-- /wp:query -->
+<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="/eventet/">Të gjitha eventet <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+</div><!-- /wp:group -->
