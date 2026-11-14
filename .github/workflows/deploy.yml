@@ -57,22 +57,13 @@ jobs:
           bye
           EOF
           }
-          root=""
-          # Hosting's directory tree includes the account name, which may
-          # already be the FTP login root. Probe both representations.
-          for candidate in "/w01d6d1b/skodrinon.yea.al" "/skodrinon.yea.al"; do
-            echo "Checking WordPress location: $candidate"
-            if ftp "cd \"$candidate/wp-admin\"
-          cd \"$candidate/wp-includes\"
-          cd \"$candidate/wp-content/themes\"
-          cd \"$candidate/wp-content/plugins\"" >/dev/null; then
-              root="$candidate"
-              break
-            fi
-          done
-          if [[ -z "$root" ]]; then
-            echo "Neither site-specific path contains the required WordPress directories."
-            echo "Check the FTP account home directory and permissions. No files have been uploaded."
+          root="/skodrinon.yea.al"
+          echo "Checking WordPress location: $root"
+          if ! ftp "cd \"$root/wp-admin\"
+          cd \"$root/wp-includes\"
+          cd \"$root/wp-content/themes\"
+          cd \"$root/wp-content/plugins\"" >/dev/null; then
+            echo "The specified WordPress directory is inaccessible. No files have been uploaded."
             exit 1
           fi
           theme="$root/wp-content/themes/skodrin-theme"
