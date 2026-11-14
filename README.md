@@ -12,3 +12,6 @@ Configure FTP_SERVER, FTP_USERNAME, FTP_PASSWORD and FTP_WP_ROOT as repository s
 Phase 1: FSE foundation, design tokens, templates, editable header/footer, style variations.
 Phase 2: Initial content types, taxonomies and metadata.
 Not yet implemented: bilingual routing/translation administration, custom interactive blocks, payment processing, donation records, complete bilingual patterns, font assets, automated quality gates and runtime accessibility/performance verification. No payment gateway is enabled.
+
+## Starter content
+After activating Skodrin Core, go to Tools > Skodrin Setup and click Create starter pages. This explicitly creates Albanian pages without overwriting existing slugs. Optionally select Kreu as the homepage if no static homepage is configured. Edit the homepage in Appearance > Editor > Templates > Front Page. Add real projects and events in their respective admin menus; the homepage queries update automatically. Add the official logo and configure navigation in the Site Editor. No fabricated impact statistics, events, payment accounts or contact details are included.
