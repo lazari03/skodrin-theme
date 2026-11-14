@@ -1,0 +1,57 @@
+name: Deploy Skodrin to FTP
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Preview changes without uploading
+        type: boolean
+        default: true
+permissions:
+  contents: read
+concurrency:
+  group: skodrin-ftp-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate FTP paths
+        env:
+          THEME_DIR: ${{ secrets.FTP_THEME_DIR }}
+          PLUGIN_DIR: ${{ secrets.FTP_PLUGIN_DIR }}
+        run: |
+          set -eu
+          case "$THEME_DIR" in */wp-content/themes/skodrin-theme/) ;; *) echo "FTP_THEME_DIR must end in /wp-content/themes/skodrin-theme/"; exit 1;; esac
+          case "$PLUGIN_DIR" in */wp-content/plugins/skodrin-core/) ;; *) echo "FTP_PLUGIN_DIR must end in /wp-content/plugins/skodrin-core/"; exit 1;; esac
+      - name: Check PHP syntax
+        run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -r -n1 php -l
+      - name: Prepare theme package
+        run: |
+          mkdir -p /tmp/skodrin-theme
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='skodrin-core/' --exclude='node_modules/' --exclude='.wp-env.json' --exclude='package.json' --exclude='package-lock.json' --exclude='README.md' --exclude='.gitignore' ./ /tmp/skodrin-theme/
+      - name: Upload theme
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_THEME_DIR }}
+          local-dir: /tmp/skodrin-theme/
+          protocol: ftps
+          port: 21
+          security: strict
+          dry-run: ${{ inputs.dry_run }}
+      - name: Upload companion plugin
+        if: ${{ hashFiles('skodrin-core/skodrin-core.php') != '' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_PLUGIN_DIR }}
+          local-dir: ./skodrin-core/
+          protocol: ftps
+          port: 21
+          security: strict
+          dry-run: ${{ inputs.dry_run }}
