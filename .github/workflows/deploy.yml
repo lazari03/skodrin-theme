@@ -24,21 +24,51 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          root="$WP_ROOT"
+          trim() {
+            local value="$1"
+            value="${value#"${value%%[![:space:]]*}"}"
+            value="${value%"${value##*[![:space:]]}"}"
+            printf '%s' "$value"
+          }
+          root="$(trim "$WP_ROOT")"
+          legacy="$(trim "$LEGACY_THEME_DIR")"
+          # Accept a path copied with surrounding quotes.
+          if [[ "$root" == \"*\" || "$root" == \'*\' ]]; then
+            root="${root:1:-1}"
+            root="$(trim "$root")"
+          fi
           if [[ -z "$root" ]]; then
-            case "$LEGACY_THEME_DIR" in
-              */wp-content/themes/skodrin-theme/|*/wp-content/themes/skodrin-theme)
-                root="${LEGACY_THEME_DIR%/}"
+            case "${legacy%/}" in
+              */wp-content/themes/skodrin-theme)
+                root="${legacy%/}"
                 root="${root%/wp-content/themes/skodrin-theme}"
                 ;;
-              *) echo "Set FTP_WP_ROOT to the FTP directory containing wp-admin and wp-content (use / for FTP root)."; exit 1 ;;
+              wp-content/themes/skodrin-theme) root="/" ;;
+              *) echo "Set FTP_WP_ROOT to the folder containing wp-admin and wp-content. Use / for the FTP login root."; exit 1 ;;
             esac
           fi
-          [[ "$root" =~ ^[a-zA-Z0-9_./-]+$ ]] || { echo "Invalid WordPress root"; exit 1; }
-          [[ ! "$root" =~ (^|/)\.\.(/|$) ]] || { echo "Parent directory segments are not allowed"; exit 1; }
+          # Accept a copied wp-content or dedicated deployment directory too.
           root="${root%/}"
-          echo "theme_dir=$root/wp-content/themes/skodrin-theme/" >> "$GITHUB_OUTPUT"
-          echo "plugin_dir=$root/wp-content/plugins/skodrin-core/" >> "$GITHUB_OUTPUT"
+          case "$root" in
+            */wp-content/themes/skodrin-theme) root="${root%/wp-content/themes/skodrin-theme}" ;;
+            */wp-content/plugins/skodrin-core) root="${root%/wp-content/plugins/skodrin-core}" ;;
+            */wp-content) root="${root%/wp-content}" ;;
+            wp-content|wp-content/themes/skodrin-theme|wp-content/plugins/skodrin-core) root="" ;;
+          esac
+          # Make FTP-login-relative paths absolute within the FTP account.
+          if [[ "$root" == "." ]]; then root=""; fi
+          if [[ "$root" == ./* ]]; then root="${root#./}"; fi
+          if [[ -n "$root" && "$root" != /* ]]; then root="/$root"; fi
+          # Reject traversal, command delimiters and control characters.
+          if [[ "$root" =~ (^|/)\.\.(/|$) || "$root" =~ [[:cntrl:]] || "$root" == *:* || "$root" == *\\* || "$root" == *\"* || "$root" == *\'* || "$root" == *\;* || "$root" == *\$* || "$root" == *\`* ]]; then
+            echo "FTP_WP_ROOT must be a directory path, not a URL, and must not contain traversal or shell metacharacters."
+            exit 1
+          fi
+          theme_dir="$root/wp-content/themes/skodrin-theme/"
+          plugin_dir="$root/wp-content/plugins/skodrin-core/"
+          echo "::add-mask::$theme_dir"
+          echo "::add-mask::$plugin_dir"
+          printf 'theme_dir=%s\nplugin_dir=%s\n' "$theme_dir" "$plugin_dir" >> "$GITHUB_OUTPUT"
       - name: Check PHP syntax
         run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -r -n1 php -l
       - name: Prepare theme package
@@ -75,7 +105,7 @@ jobs:
         run: |
           set -euo pipefail
           # Restrict paths before interpolating into lftp commands.
-          [[ "$PLUGIN_DIR" =~ ^[a-zA-Z0-9_./-]+$ ]] || { echo "Invalid plugin directory"; exit 1; }
+          [[ "$PLUGIN_DIR" == */wp-content/plugins/skodrin-core/ ]] || { echo "Invalid plugin directory"; exit 1; }
           [[ ! "$PLUGIN_DIR" =~ (^|/)\.\.(/|$) ]] || { echo "Invalid plugin directory"; exit 1; }
           [[ "$FTP_SERVER" =~ ^[a-zA-Z0-9.-]+$ ]] || { echo "FTP_SERVER must be a hostname"; exit 1; }
           target="${PLUGIN_DIR%/}"
