@@ -42,16 +42,53 @@ jobs:
           port: 21
           security: strict
           dry-run: ${{ inputs.dry_run }}
+      - name: Install resilient FTPS client
+        if: ${{ hashFiles('skodrin-core/skodrin-core.php') != '' }}
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y lftp
       - name: Upload companion plugin
         if: ${{ hashFiles('skodrin-core/skodrin-core.php') != '' }}
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_PLUGIN_DIR }}
-          local-dir: ./skodrin-core/
-          protocol: ftps
-          port: 21
-          security: strict
-          dry-run: ${{ inputs.dry_run }}
+        timeout-minutes: 12
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          PLUGIN_DIR: ${{ secrets.FTP_PLUGIN_DIR }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Restrict paths before interpolating into lftp commands.
+          [[ "$PLUGIN_DIR" =~ ^[a-zA-Z0-9_./-]+$ ]] || { echo "Invalid plugin directory"; exit 1; }
+          [[ ! "$PLUGIN_DIR" =~ (^|/)\.\.(/|$) ]] || { echo "Invalid plugin directory"; exit 1; }
+          [[ "$FTP_SERVER" =~ ^[a-zA-Z0-9.-]+$ ]] || { echo "FTP_SERVER must be a hostname"; exit 1; }
+          target="${PLUGIN_DIR%/}"
+          flags="--reverse --verbose --parallel=1 --no-perms"
+          if [[ "$DRY_RUN" == "true" ]]; then
+            flags="$flags --dry-run"
+          fi
+          for attempt in 1 2 3; do
+            if lftp --env-password -u "$FTP_USERNAME" -p 21 "ftp://$FTP_SERVER" <<EOF
+          set cmd:fail-exit true
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ftp:ssl-protect-list true
+          set ssl:verify-certificate true
+          set ftp:passive-mode true
+          set ftp:sync-mode true
+          set net:timeout 30
+          set net:max-retries 4
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 20
+          mirror $flags ./skodrin-core "$target"
+          bye
+          EOF
+            then
+              exit 0
+            fi
+            echo "Plugin FTPS attempt $attempt failed."
+            if [[ "$attempt" != "3" ]]; then sleep 10; fi
+          done
+          echo "Plugin upload failed after three attempts. Check hosting FTP logs and passive FTPS settings."
+          exit 1
