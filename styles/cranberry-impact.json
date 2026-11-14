@@ -1,0 +1,114 @@
+{
+  "version": 3,
+  "title": "Cranberry Impact",
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "slug": "royal-blue",
+          "name": "Royal Blue",
+          "color": "#A51050"
+        },
+        {
+          "slug": "gold",
+          "name": "Gold",
+          "color": "#F7A81B"
+        },
+        {
+          "slug": "azure",
+          "name": "Azure",
+          "color": "#0067C8"
+        },
+        {
+          "slug": "sky",
+          "name": "Sky Blue",
+          "color": "#00A2E0"
+        },
+        {
+          "slug": "cranberry",
+          "name": "Cranberry",
+          "color": "#D41367"
+        },
+        {
+          "slug": "cardinal",
+          "name": "Cardinal",
+          "color": "#E02927"
+        },
+        {
+          "slug": "turquoise",
+          "name": "Turquoise",
+          "color": "#00ADBB"
+        },
+        {
+          "slug": "violet",
+          "name": "Violet",
+          "color": "#901F93"
+        },
+        {
+          "slug": "orange",
+          "name": "Orange",
+          "color": "#FF7600"
+        },
+        {
+          "slug": "grass",
+          "name": "Grass",
+          "color": "#009739"
+        },
+        {
+          "slug": "charcoal",
+          "name": "Charcoal",
+          "color": "#54565A"
+        },
+        {
+          "slug": "pewter",
+          "name": "Pewter",
+          "color": "#898A8D"
+        },
+        {
+          "slug": "smoke",
+          "name": "Smoke",
+          "color": "#B1B1B1"
+        },
+        {
+          "slug": "silver",
+          "name": "Silver",
+          "color": "#D0CFCD"
+        },
+        {
+          "slug": "ink",
+          "name": "Ink",
+          "color": "#303238"
+        },
+        {
+          "slug": "paper",
+          "name": "Paper",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "surface",
+          "name": "Surface",
+          "color": "#F2F5F9"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#FFFFFF",
+      "text": "#303238"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "#A51050"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "#A51050",
+          "text": "#FFFFFF"
+        }
+      }
+    }
+  }
+}
