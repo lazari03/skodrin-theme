@@ -1,0 +1,14 @@
+/*
+Theme Name: Skodrin
+Description: Starter WordPress theme for Skodrin.
+Version: 1.0.0
+Text Domain: skodrin
+*/
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.6 system-ui, sans-serif; color: #202124; background: #fff; }
+.site-header, main, .site-footer { max-width: 1100px; margin: auto; padding: 24px; }
+.site-header { border-bottom: 1px solid #ddd; }
+.site-footer { border-top: 1px solid #ddd; }
+a { color: inherit; }
+img { max-width: 100%; height: auto; }
+article { margin-bottom: 2rem; }
