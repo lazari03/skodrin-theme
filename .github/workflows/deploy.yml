@@ -14,7 +14,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - name: Check PHP syntax
@@ -26,86 +26,76 @@ jobs:
           test -f /tmp/skodrin-theme/style.css
           test -f /tmp/skodrin-theme/screenshot.png
           test -f ./skodrin-core/skodrin-core.php
-      - name: Install FTPS client
+      - name: Confirm FTP destinations
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y lftp
-      - name: Verify WordPress site and deploy both packages
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          DRY_RUN: ${{ inputs.dry_run }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          [[ "$FTP_SERVER" =~ ^[a-zA-Z0-9.-]+$ ]] || { echo "FTP_SERVER must be a hostname"; exit 1; }
-          test -n "$FTP_USERNAME" && test -n "$LFTP_PASSWORD"
-          ftp() {
-            lftp --env-password -u "$FTP_USERNAME" -p 21 "ftp://$FTP_SERVER" <<EOF
-          set cmd:fail-exit true
-          set ftp:ssl-force true
-          set ftp:ssl-protect-data true
-          set ftp:ssl-protect-list true
-          set ssl:verify-certificate true
-          set ftp:passive-mode true
-          set ftp:sync-mode true
-          set net:timeout 25
-          set net:max-retries 2
-          set net:reconnect-interval-base 5
-          $1
-          bye
-          EOF
-          }
-          # FTP paths are relative to the account's virtual filesystem,
-          # not necessarily the hosting control panel's directory tree.
-          # Only check the two parent folders we actually need to write.
-          content=""
-          for candidate in "/skodrinon.yea.al/wp-content" "/w01d6d1b/skodrinon.yea.al/wp-content" "/wp-content"; do
-            echo "Checking FTP content location: $candidate"
-            if ftp "cd \"$candidate/themes\"
-          cd \"$candidate/plugins\"" >/dev/null; then
-              content="$candidate"
-              break
-            fi
-          done
-          # An FTP account may be restricted to wp-content itself.
-          if [[ -z "$content" ]]; then
-            echo "Checking whether FTP login is rooted at wp-content"
-            if ftp 'cd /themes
-          cd /plugins' >/dev/null; then
-              content="/"
-            fi
-          fi
-          if [[ -z "$content" ]]; then
-            echo "No accessible WordPress themes and plugins directories found."
-            echo "FTP login root and directory names:"
-            ftp 'pwd
-          cls -1 /' || true
-            echo "No files have been uploaded."
-            exit 1
-          fi
-          theme="${content%/}/themes/skodrin-theme"
-          plugin="${content%/}/plugins/skodrin-core"
-          echo "Verified FTP content directory: $content"
-          echo "Theme destination: $theme"
-          echo "Plugin destination: $plugin"
-          flags="--reverse --verbose --parallel=1 --no-perms --ignore-time"
-          if [[ "$DRY_RUN" == "true" ]]; then flags="$flags --dry-run"; fi
-          for attempt in 1 2 3; do
-            if ftp "mirror $flags /tmp/skodrin-theme \"$theme\"
-          mirror $flags ./skodrin-core \"$plugin\""; then
-              if [[ "$DRY_RUN" == "true" ]]; then
-                echo "Dry run complete. No files uploaded."
-              else
-                ftp "cls -l \"$theme/screenshot.png\"
-          cls -l \"$theme/style.css\"
-          cls -l \"$plugin/skodrin-core.php\""
-                echo "Deployment complete; key remote files verified."
-              fi
-              exit 0
-            fi
-            echo "FTPS attempt $attempt failed."
-            if [[ "$attempt" != "3" ]]; then sleep 10; fi
-          done
-          exit 1
+          echo "FTP account root is wp-content."
+          echo "Theme: /themes/skodrin-theme/"
+          echo "Plugin: /plugins/skodrin-core/"
+      - name: Upload theme
+        id: theme
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /themes/skodrin-theme/
+          local-dir: /tmp/skodrin-theme/
+          protocol: ftps
+          port: 21
+          security: strict
+          timeout: 60000
+          dry-run: ${{ inputs.dry_run }}
+          state-name: .skodrin-theme-deploy-state.json
+      - name: Wait before theme retry
+        if: steps.theme.outcome == 'failure'
+        run: sleep 15
+      - name: Retry theme upload
+        if: steps.theme.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /themes/skodrin-theme/
+          local-dir: /tmp/skodrin-theme/
+          protocol: ftps
+          port: 21
+          security: strict
+          timeout: 60000
+          dry-run: ${{ inputs.dry_run }}
+          state-name: .skodrin-theme-deploy-state.json
+      - name: Upload companion plugin
+        id: plugin
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /plugins/skodrin-core/
+          local-dir: ./skodrin-core/
+          protocol: ftps
+          port: 21
+          security: strict
+          timeout: 60000
+          dry-run: ${{ inputs.dry_run }}
+          state-name: .skodrin-core-deploy-state.json
+      - name: Wait before plugin retry
+        if: steps.plugin.outcome == 'failure'
+        run: sleep 15
+      - name: Retry plugin upload
+        if: steps.plugin.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /plugins/skodrin-core/
+          local-dir: ./skodrin-core/
+          protocol: ftps
+          port: 21
+          security: strict
+          timeout: 60000
+          dry-run: ${{ inputs.dry_run }}
+          state-name: .skodrin-core-deploy-state.json
