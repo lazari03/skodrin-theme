@@ -57,18 +57,37 @@ jobs:
           bye
           EOF
           }
-          root="/skodrinon.yea.al"
-          echo "Checking WordPress location: $root"
-          if ! ftp "cd \"$root/wp-admin\"
-          cd \"$root/wp-includes\"
-          cd \"$root/wp-content/themes\"
-          cd \"$root/wp-content/plugins\"" >/dev/null; then
-            echo "The specified WordPress directory is inaccessible. No files have been uploaded."
+          # FTP paths are relative to the account's virtual filesystem,
+          # not necessarily the hosting control panel's directory tree.
+          # Only check the two parent folders we actually need to write.
+          content=""
+          for candidate in "/skodrinon.yea.al/wp-content" "/w01d6d1b/skodrinon.yea.al/wp-content" "/wp-content"; do
+            echo "Checking FTP content location: $candidate"
+            if ftp "cd \"$candidate/themes\"
+          cd \"$candidate/plugins\"" >/dev/null; then
+              content="$candidate"
+              break
+            fi
+          done
+          # An FTP account may be restricted to wp-content itself.
+          if [[ -z "$content" ]]; then
+            echo "Checking whether FTP login is rooted at wp-content"
+            if ftp 'cd /themes
+          cd /plugins' >/dev/null; then
+              content="/"
+            fi
+          fi
+          if [[ -z "$content" ]]; then
+            echo "No accessible WordPress themes and plugins directories found."
+            echo "FTP login root and directory names:"
+            ftp 'pwd
+          cls -1 /' || true
+            echo "No files have been uploaded."
             exit 1
           fi
-          theme="$root/wp-content/themes/skodrin-theme"
-          plugin="$root/wp-content/plugins/skodrin-core"
-          echo "Verified WordPress root: $root"
+          theme="${content%/}/themes/skodrin-theme"
+          plugin="${content%/}/plugins/skodrin-core"
+          echo "Verified FTP content directory: $content"
           echo "Theme destination: $theme"
           echo "Plugin destination: $plugin"
           flags="--reverse --verbose --parallel=1 --no-perms --ignore-time"
