@@ -22,13 +22,19 @@
 </div><!-- /wp:column -->
 </div><!-- /wp:columns -->
 </div><!-- /wp:group -->
-<!-- wp:group {"align":"wide","className":"rc-section","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-section"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">HISTORI NGA KLUBI</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Lajme dhe histori</h2><!-- /wp:heading -->
-<!-- wp:query {"queryId":61,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} --><div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} --><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /--><!-- wp:post-title {"isLink":true,"level":3} /--><!-- wp:post-excerpt {"excerptLength":24} /--><!-- /wp:post-template -->
-<!-- wp:query-no-results --><!-- wp:paragraph --><p>Ndiqni njoftimet dhe historitë e klubit në Facebook.</p><!-- /wp:paragraph -->
-<!-- /wp:query-no-results -->
+<!-- wp:group {"align":"wide","className":"rc-section rc-news-editorial","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide rc-section rc-news-editorial">
+<!-- wp:heading {"level":2,"className":"rc-news-heading"} --><h2 class="wp-block-heading rc-news-heading">Lajme nga Rotary <span class="rc-news-separator">|</span> <span class="rc-news-subtitle">Histori nga e gjithë bota</span></h2><!-- /wp:heading -->
+<!-- wp:query {"queryId":61,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"rc-news-query"} --><div class="wp-block-query rc-news-query">
+<!-- wp:post-template {"layout":{"type":"grid","columnCount":4}} -->
+<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3"} /-->
+<!-- wp:post-terms {"term":"post_tag","separator":" · ","className":"rc-news-tag"} /-->
+<!-- wp:post-title {"isLink":true,"level":3} /-->
+<!-- wp:post-excerpt {"excerptLength":20} /-->
+<!-- /wp:post-template -->
+<!-- wp:query-no-results --><!-- wp:paragraph --><p>Ndiqni lajmet e klubit për histori dhe njoftime të reja.</p><!-- /wp:paragraph --><!-- /wp:query-no-results -->
 </div><!-- /wp:query -->
-<!-- wp:paragraph {"className":"rc-text-link"} --><p class="rc-text-link"><a href="/lajme/">Të gjitha lajmet <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"rc-news-more"} --><p class="rc-news-more"><a href="/lajme/">Më shumë lajme dhe histori <span aria-hidden="true">→</span></a></p><!-- /wp:paragraph -->
 </div><!-- /wp:group -->
 <!-- wp:group {"align":"full","className":"rc-causes","layout":{"type":"constrained"}} --><div class="wp-block-group alignfull rc-causes"><!-- wp:group {"align":"wide","className":"rc-section","layout":{"type":"constrained"}} --><div class="wp-block-group alignwide rc-section"><!-- wp:paragraph {"className":"rc-kicker"} --><p class="rc-kicker">FUSHAT TONA</p><!-- /wp:paragraph -->
 <!-- wp:heading {"level":2} --><h2 class="wp-block-heading">Shtatë fusha. Një qëllim.</h2><!-- /wp:heading -->
