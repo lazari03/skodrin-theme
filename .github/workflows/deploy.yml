@@ -14,107 +14,35 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-      - name: Resolve WordPress deployment paths
-        id: paths
-        env:
-          WP_ROOT: ${{ secrets.FTP_WP_ROOT }}
-          LEGACY_THEME_DIR: ${{ secrets.FTP_THEME_DIR }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          trim() {
-            local value="$1"
-            value="${value#"${value%%[![:space:]]*}"}"
-            value="${value%"${value##*[![:space:]]}"}"
-            printf '%s' "$value"
-          }
-          root="$(trim "$WP_ROOT")"
-          legacy="$(trim "$LEGACY_THEME_DIR")"
-          # Accept a path copied with surrounding quotes.
-          if [[ "$root" == \"*\" || "$root" == \'*\' ]]; then
-            root="${root:1:-1}"
-            root="$(trim "$root")"
-          fi
-          if [[ -z "$root" ]]; then
-            case "${legacy%/}" in
-              */wp-content/themes/skodrin-theme)
-                root="${legacy%/}"
-                root="${root%/wp-content/themes/skodrin-theme}"
-                ;;
-              wp-content/themes/skodrin-theme) root="/" ;;
-              *) echo "Set FTP_WP_ROOT to the folder containing wp-admin and wp-content. Use / for the FTP login root."; exit 1 ;;
-            esac
-          fi
-          # Accept a copied wp-content or dedicated deployment directory too.
-          root="${root%/}"
-          case "$root" in
-            */wp-content/themes/skodrin-theme) root="${root%/wp-content/themes/skodrin-theme}" ;;
-            */wp-content/plugins/skodrin-core) root="${root%/wp-content/plugins/skodrin-core}" ;;
-            */wp-content) root="${root%/wp-content}" ;;
-            wp-content|wp-content/themes/skodrin-theme|wp-content/plugins/skodrin-core) root="" ;;
-          esac
-          # Make FTP-login-relative paths absolute within the FTP account.
-          if [[ "$root" == "." ]]; then root=""; fi
-          if [[ "$root" == ./* ]]; then root="${root#./}"; fi
-          if [[ -n "$root" && "$root" != /* ]]; then root="/$root"; fi
-          # Reject traversal, command delimiters and control characters.
-          if [[ "$root" =~ (^|/)\.\.(/|$) || "$root" =~ [[:cntrl:]] || "$root" == *:* || "$root" == *\\* || "$root" == *\"* || "$root" == *\'* || "$root" == *\;* || "$root" == *\$* || "$root" == *\`* ]]; then
-            echo "FTP_WP_ROOT must be a directory path, not a URL, and must not contain traversal or shell metacharacters."
-            exit 1
-          fi
-          theme_dir="$root/wp-content/themes/skodrin-theme/"
-          plugin_dir="$root/wp-content/plugins/skodrin-core/"
-          echo "::add-mask::$theme_dir"
-          echo "::add-mask::$plugin_dir"
-          printf 'theme_dir=%s\nplugin_dir=%s\n' "$theme_dir" "$plugin_dir" >> "$GITHUB_OUTPUT"
       - name: Check PHP syntax
         run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -r -n1 php -l
       - name: Prepare theme package
         run: |
           mkdir -p /tmp/skodrin-theme
           rsync -a --exclude='.git/' --exclude='.github/' --exclude='skodrin-core/' --exclude='node_modules/' --exclude='.wp-env.json' --exclude='package.json' --exclude='package-lock.json' --exclude='README.md' --exclude='.gitignore' ./ /tmp/skodrin-theme/
-      - name: Upload theme
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ steps.paths.outputs.theme_dir }}
-          local-dir: /tmp/skodrin-theme/
-          protocol: ftps
-          port: 21
-          security: strict
-          dry-run: ${{ inputs.dry_run }}
-      - name: Install resilient FTPS client
-        if: ${{ hashFiles('skodrin-core/skodrin-core.php') != '' }}
+          test -f /tmp/skodrin-theme/style.css
+          test -f /tmp/skodrin-theme/screenshot.png
+          test -f ./skodrin-core/skodrin-core.php
+      - name: Install FTPS client
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y lftp
-      - name: Upload companion plugin
-        if: ${{ hashFiles('skodrin-core/skodrin-core.php') != '' }}
-        timeout-minutes: 12
+      - name: Verify WordPress site and deploy both packages
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          PLUGIN_DIR: ${{ steps.paths.outputs.plugin_dir }}
           DRY_RUN: ${{ inputs.dry_run }}
         shell: bash
         run: |
           set -euo pipefail
-          # Restrict paths before interpolating into lftp commands.
-          [[ "$PLUGIN_DIR" == */wp-content/plugins/skodrin-core/ ]] || { echo "Invalid plugin directory"; exit 1; }
-          [[ ! "$PLUGIN_DIR" =~ (^|/)\.\.(/|$) ]] || { echo "Invalid plugin directory"; exit 1; }
           [[ "$FTP_SERVER" =~ ^[a-zA-Z0-9.-]+$ ]] || { echo "FTP_SERVER must be a hostname"; exit 1; }
-          target="${PLUGIN_DIR%/}"
-          flags="--reverse --verbose --parallel=1 --no-perms"
-          if [[ "$DRY_RUN" == "true" ]]; then
-            flags="$flags --dry-run"
-          fi
-          for attempt in 1 2 3; do
-            if lftp --env-password -u "$FTP_USERNAME" -p 21 "ftp://$FTP_SERVER" <<EOF
+          test -n "$FTP_USERNAME" && test -n "$LFTP_PASSWORD"
+          ftp() {
+            lftp --env-password -u "$FTP_USERNAME" -p 21 "ftp://$FTP_SERVER" <<EOF
           set cmd:fail-exit true
           set ftp:ssl-force true
           set ftp:ssl-protect-data true
@@ -122,18 +50,52 @@ jobs:
           set ssl:verify-certificate true
           set ftp:passive-mode true
           set ftp:sync-mode true
-          set net:timeout 30
-          set net:max-retries 4
+          set net:timeout 25
+          set net:max-retries 2
           set net:reconnect-interval-base 5
-          set net:reconnect-interval-max 20
-          mirror $flags ./skodrin-core "$target"
+          $1
           bye
           EOF
-            then
+          }
+          root=""
+          # Hosting's directory tree includes the account name, which may
+          # already be the FTP login root. Probe both representations.
+          for candidate in "/w01d6d1b/skodrinon.yea.al" "/skodrinon.yea.al"; do
+            echo "Checking WordPress location: $candidate"
+            if ftp "cd \"$candidate/wp-admin\"
+          cd \"$candidate/wp-includes\"
+          cd \"$candidate/wp-content/themes\"
+          cd \"$candidate/wp-content/plugins\"" >/dev/null; then
+              root="$candidate"
+              break
+            fi
+          done
+          if [[ -z "$root" ]]; then
+            echo "Neither site-specific path contains the required WordPress directories."
+            echo "Check the FTP account home directory and permissions. No files have been uploaded."
+            exit 1
+          fi
+          theme="$root/wp-content/themes/skodrin-theme"
+          plugin="$root/wp-content/plugins/skodrin-core"
+          echo "Verified WordPress root: $root"
+          echo "Theme destination: $theme"
+          echo "Plugin destination: $plugin"
+          flags="--reverse --verbose --parallel=1 --no-perms --ignore-time"
+          if [[ "$DRY_RUN" == "true" ]]; then flags="$flags --dry-run"; fi
+          for attempt in 1 2 3; do
+            if ftp "mirror $flags /tmp/skodrin-theme \"$theme\"
+          mirror $flags ./skodrin-core \"$plugin\""; then
+              if [[ "$DRY_RUN" == "true" ]]; then
+                echo "Dry run complete. No files uploaded."
+              else
+                ftp "cls -l \"$theme/screenshot.png\"
+          cls -l \"$theme/style.css\"
+          cls -l \"$plugin/skodrin-core.php\""
+                echo "Deployment complete; key remote files verified."
+              fi
               exit 0
             fi
-            echo "Plugin FTPS attempt $attempt failed."
+            echo "FTPS attempt $attempt failed."
             if [[ "$attempt" != "3" ]]; then sleep 10; fi
           done
-          echo "Plugin upload failed after three attempts. Check hosting FTP logs and passive FTPS settings."
           exit 1
