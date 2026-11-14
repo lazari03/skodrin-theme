@@ -16,3 +16,14 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 
 /* Skodrin primary navy — footer and site-wide brand share the same token. */
 .rc-footer-v2 .rc-foot-donate .wp-block-button__link{background:var(--wp--preset--color--royal-blue);color:#fff;border:1px solid #fff}.rc-footer-v2 .rc-foot-donate .wp-block-button__link:hover{background:#fff;color:var(--wp--preset--color--royal-blue)}
+
+/* Enforce the site navy over legacy deployed CSS; eliminate template gap. */
+body .rc-join,body .rc-page-title-bar,body .rc-footer.rc-footer-v2,body .skodrin-hero,body .skodrin-cta{background-color:#202B3B!important}
+body .rc-section:not(.rc-join .rc-section) h2,body .rc-section:not(.rc-join .rc-section) h3,body .rc-kicker:not(.rc-hero .rc-kicker):not(.rc-join .rc-kicker),body .rc-text-link a,body .rc-cause-number,body .rc-brand .wp-block-site-title a,body .rc-nav-actions .wp-block-navigation-item__content{color:#202B3B}
+body .rc-join h2,body .rc-join .rc-kicker,body .rc-footer.rc-footer-v2 h3{color:#fff}
+body .rc-page-card,body .rc-cause-card{border-top-color:#202B3B}body .rc-cause-accent,body .rc-page-card:hover{border-top-color:#F7A81B}
+body .wp-site-blocks > main.rc-home + footer,body .wp-site-blocks > main.rc-page-template + footer{margin-block-start:0!important}
+body .rc-home > .wp-block-post-content:empty{display:none;margin:0!important;padding:0!important}
+body .rc-home{padding-bottom:0!important}
+body .rc-footer-v2 .rc-foot-donate .wp-block-button__link{background:#202B3B;color:#fff;border:1px solid #fff}
+body .rc-footer-v2 .rc-foot-join .wp-block-button__link{background:#F7A81B;color:#202B3B}
