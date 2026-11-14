@@ -229,7 +229,7 @@
     "elements": {
       "heading": {
         "typography": {
-          "fontFamily": "var:preset|font-family|display",
+          "fontFamily": "var:preset|font-family|sans",
           "lineHeight": "1.15",
           "fontWeight": "700"
         }
